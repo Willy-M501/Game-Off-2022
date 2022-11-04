@@ -30,6 +30,6 @@ public class CharacterMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        body.velocity = new Vector2(horizontal, vertical).normalized * runSpeed;
+        body.velocity = new Vector2(horizontal, vertical).normalized * runSpeed * Time.deltaTime * 100f;
     }
 }

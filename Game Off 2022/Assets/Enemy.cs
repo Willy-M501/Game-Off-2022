@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
 
     public float speed = 400f;
     public float pickNextWaypointDistance = 1f;
+    public float attackRange = 2f;
 
     Path path;
     int currentWaypoint = 0;
@@ -63,10 +64,20 @@ public class Enemy : MonoBehaviour
 
             float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
 
+            var dir = target.position - transform.position;
+            var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
             if (distance < pickNextWaypointDistance)
             {
                 currentWaypoint++;
             }
         }
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }
